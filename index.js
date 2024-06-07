@@ -43,8 +43,18 @@ const server = http.createServer( async (request, response) => {
           });
         
         break;
-    case '/prodcuts':
+        
+    case '/products':
         if(DEBUG) console.log('products');
+        fs.readFile(__dirname + "/views/products.html", function (error, html) {
+            if (error) {
+                throw error;
+            }
+            else{
+                if(DEBUG) console.log("Sucessfully loaded file")
+            }
+            response.end(html);
+            });
         break;
     case '/subscribe':
         if(DEBUG) console.log('subscribe');
