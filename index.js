@@ -105,7 +105,7 @@ const server = http.createServer( async (request, response) => {
             let message = `500 - server error with internal error code of ${error.code}.`
             myEmitter.emit('event', fullUrl, 'ERROR', message);
         response.writeHead(500, { 'Content-Type': 'text/html' });
-        response.write(JSON.stringify({ error: 'An error occurred while loading the homepage' }));
+        response.write(JSON.stringify({ error: 'An error occurred while loading the contact page' }));
         response.end();
         
         }
@@ -114,31 +114,77 @@ const server = http.createServer( async (request, response) => {
 
     case '/products':
         if(DEBUG) console.log('products');
-        fs.readFile(__dirname + "/views/products.html", function (error, html) {
-            if (error) {
-                throw error;
-            }
-            else{
-                if(DEBUG) console.log("Sucessfully loaded file")
-            }
+        try{
+            fs.readFile(__dirname + "/views/products.html", function (error, html) {
+            try{
+ 
+            if(DEBUG) console.log("Sucessfully loaded file")
+            
             response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(html)
+            response.write(html);
             response.end();
-            });
+            
+            myEmitter.emit('event', fullUrl, 'INFO', 'Wrote the product page');
+        }
+        catch{
+            console.error(error);
+            let message = `500 - server error with internal error code of ${error.code}.`
+            myEmitter.emit('event', fullUrl, 'ERROR', message);
+        response.write(JSON.stringify({ error: 'An error occurred while loading the product page' }));
+        response.end();
+
+        }
+          })
+        }
+        
+        
+        catch (error){
+            console.error(error);
+            let message = `500 - server error with internal error code of ${error.code}.`
+            myEmitter.emit('event', fullUrl, 'ERROR', message);
+        response.writeHead(500, { 'Content-Type': 'text/html' });
+        response.write(JSON.stringify({ error: 'An error occurred while loading the homepage' }));
+        response.end();
+        
+        }
+
         break;
+
     case '/subscribe':
         if(DEBUG) console.log('subscribe');
-        fs.readFile(__dirname + "/views/subscribe.html", function (error, html) {
-            if (error) {
-                throw error;
-            }
-            else{
-                if(DEBUG) console.log("Sucessfully loaded file")
-            }
+        try{
+            fs.readFile(__dirname + "/views/subscribe.html", function (error, html) {
+            try{
+ 
+            if(DEBUG) console.log("Sucessfully loaded file")
+            
             response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(html)
+            response.write(html);
             response.end();
-            });
+            
+            myEmitter.emit('event', fullUrl, 'INFO', 'Wrote the subscribe page');
+        }
+        catch{
+            console.error(error);
+            let message = `500 - server error with internal error code of ${error.code}.`
+            myEmitter.emit('event', fullUrl, 'ERROR', message);
+        response.write(JSON.stringify({ error: 'An error occurred while loading the subscribe page' }));
+        response.end();
+
+        }
+          })
+        }
+        
+        
+        catch (error){
+            console.error(error);
+            let message = `500 - server error with internal error code of ${error.code}.`
+            myEmitter.emit('event', fullUrl, 'ERROR', message);
+        response.writeHead(500, { 'Content-Type': 'text/html' });
+        response.write(JSON.stringify({ error: 'An error occurred while loading the homepage' }));
+        response.end();
+        
+        }
         break;
     case '/about':
         if(DEBUG) console.log('about');
