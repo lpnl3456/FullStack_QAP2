@@ -13,7 +13,7 @@ const server = http.createServer( async (request, response) => {
       response.end();
       return;
     }
-    const fullUrl = `http://${request.headers.host}${request.url}`;
+ 
     switch(request.url) {
     case '/':
         if(DEBUG) console.log("Homepage");
@@ -25,8 +25,9 @@ const server = http.createServer( async (request, response) => {
             else{
                 if(DEBUG) console.log("Sucessfully loaded file")
             }
-
-            response.end(html);
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(html)
+            response.end();
           });
         break;
     case '/contacts':
@@ -39,7 +40,9 @@ const server = http.createServer( async (request, response) => {
             else{
                 if(DEBUG) console.log("Sucessfully loaded file")
             }
-            response.end(html);
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(html)
+            response.end();
           });
         
         break;
@@ -53,7 +56,9 @@ const server = http.createServer( async (request, response) => {
             else{
                 if(DEBUG) console.log("Sucessfully loaded file")
             }
-            response.end(html);
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(html)
+            response.end();
             });
         break;
     case '/subscribe':
@@ -65,7 +70,9 @@ const server = http.createServer( async (request, response) => {
             else{
                 if(DEBUG) console.log("Sucessfully loaded file")
             }
-            response.end(html);
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(html)
+            response.end();
             });
         break;
     case '/about':
@@ -77,9 +84,25 @@ const server = http.createServer( async (request, response) => {
             else{
                 if(DEBUG) console.log("Sucessfully loaded file")
             }
-            response.end(html);
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(html)
+            response.end();
             });
         break;
+   default:
+    console.log("could not find page")
+
+    fs.readFile(__dirname + "/views/invalidPage.html", function (error, html) {
+        if (error) {
+            throw error;
+        }
+        else{
+            if(DEBUG) console.log("Sucessfully loaded file")
+        }
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.write(html)
+        response.end();
+        });
         
 }
 }
