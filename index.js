@@ -76,17 +76,39 @@ const server = http.createServer( async (request, response) => {
     case '/contacts':
         if(DEBUG) console.log('contact');
 
-        fs.readFile(__dirname + "/views/contacts.html", function (error, html) {
-            if (error) {
-              throw error;
-            }
-            else{
-                if(DEBUG) console.log("Sucessfully loaded file")
-            }
+        try{
+            fs.readFile(__dirname + "/views/contacts.html", function (error, html) {
+            try{
+ 
+            if(DEBUG) console.log("Sucessfully loaded file")
+            
             response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(html)
+            response.write(html);
             response.end();
-          });
+            
+            myEmitter.emit('event', fullUrl, 'INFO', 'Worte the contact page');
+        }
+        catch{
+            console.error(error);
+            let message = `500 - server error with internal error code of ${error.code}.`
+            myEmitter.emit('event', fullUrl, 'ERROR', message);
+        response.write(JSON.stringify({ error: 'An error occurred while loading the homepage' }));
+        response.end();
+
+        }
+          })
+        }
+        
+        
+        catch (error){
+            console.error(error);
+            let message = `500 - server error with internal error code of ${error.code}.`
+            myEmitter.emit('event', fullUrl, 'ERROR', message);
+        response.writeHead(500, { 'Content-Type': 'text/html' });
+        response.write(JSON.stringify({ error: 'An error occurred while loading the homepage' }));
+        response.end();
+        
+        }
         
         break;
 
