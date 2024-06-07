@@ -43,7 +43,7 @@ const server = http.createServer( async (request, response) => {
           });
         
         break;
-        
+
     case '/products':
         if(DEBUG) console.log('products');
         fs.readFile(__dirname + "/views/products.html", function (error, html) {
@@ -58,6 +58,15 @@ const server = http.createServer( async (request, response) => {
         break;
     case '/subscribe':
         if(DEBUG) console.log('subscribe');
+        fs.readFile(__dirname + "/views/subscribe.html", function (error, html) {
+            if (error) {
+                throw error;
+            }
+            else{
+                if(DEBUG) console.log("Sucessfully loaded file")
+            }
+            response.end(html);
+            });
         break;
     case '/about':
         if(DEBUG) console.log('about');
