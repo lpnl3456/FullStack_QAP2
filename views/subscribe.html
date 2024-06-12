@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1, initial-scale=1.0">
+    <link rel="stylesheet" href="./Style/styles.css">
     <title>Subscribe</title>
 </head>
+<div class = mainBox>
 <body>
-
-    <h1>Subscribe</h1>
-
-    <p>Subscribe.</p>
+    <div class = subscribeBox>
+<header> 
+    <div class = linkFontSize>
+    <a href = "http://localhost:3000/">HomePage</a>
+        <a href = "http://localhost:3000/about">About</a>
+        <a href = "http://localhost:3000/products">Products</a>
+        <a href = "http://localhost:3000/contacts">Contacts</a>
+        <a href = "http://localhost:3000/subscribe">Subscribe</a>
+    </div>
+    <h4>Subscribe</h4>
+</header>
     
+    
+    <p>Fill out the form to get notifcations on deals and events we are offering</p>
+
+    <form>
+        <label for="fName">First Name;</label><br>
+        <input type ="text" id ="fName" name = "fName"><br>
+        <label for="lName">Last Name;</label><br>
+        <input type ="text" id ="lName" name = "lName"><br>
+        <label for="email">Email</label><br>
+        <input type ="text" id ="email" name = "email"><br>
+        <input type ="submit" value="Sumbit"><br>
+    </form>
+</div> 
 </body>
+</div>
 </html>
